@@ -239,7 +239,6 @@
 			return SS_CANNOT_COMPLETE;
 		}
 		
-		//[NSThread sleepForTimeInterval:0.01];
 		// Take the first no. in the possibleValue list
 		// And set it as the current cells value
 		currentCell->value = currentCell->possibleValues[0];
@@ -333,7 +332,7 @@
 	}else{
 		currentCell->possibleValues = new int[counter + 1];
 		currentCell->numberOfPossibleValues = 0;
-		for(i = 1; i <= (numberOfInnerRows * numberOfInnerCols) + 1; i++){
+		for(i = 1; i < (numberOfInnerRows * numberOfInnerCols) + 1; i++){
 			if (fullListOfValues[i - 1] == 0){
 				currentCell->possibleValues[currentCell->numberOfPossibleValues] = i;
 				currentCell->numberOfPossibleValues++;
