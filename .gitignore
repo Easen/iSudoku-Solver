@@ -1,2 +1,7 @@
 # Ignore the contents of the  build folder
 build/*
+
+*.pbxuser
+*.perspective
+*.perspectivev3
+
