@@ -42,7 +42,7 @@
 	// Set Up Grid Sheet
 	IBOutlet NSWindow *setUpGrid;
 	IBOutlet NSButtonCell *setUpGridRadio9x9;
-	IBOutlet NSButtonCell *setUpGridRadio12x12;
+	IBOutlet NSButtonCell *setUpGridRadio16x16;
 	// Insert Fixed Value
 	IBOutlet NSWindow *insertFixedValue;
 	IBOutlet NSButton *insertFixedValueAdd;
@@ -70,7 +70,7 @@
 - (void)timerUpdateGrid:(NSTimer*)aTimer;
 @property (retain) NSWindow *insertFixedValue;
 @property (retain) SudokuView *sudokuGrid;
-@property (retain) NSButtonCell *setUpGridRadio12x12;
+@property (retain) NSButtonCell *setUpGridRadio16x16;
 @property 	bool fKillTimer;
 @property (retain) NSButtonCell *setUpGridRadio9x9;
 @property (retain) NSToolbarItem *newGridBtn;

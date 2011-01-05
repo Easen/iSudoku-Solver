@@ -117,8 +117,6 @@
 
 - (IBAction)resetGrid:(id)sender
 {
-	//ss_destroySudokuSolver();
-	//ss_initaliseSudokuSolver(9, 9, 3, 3);
 	[fSudokuSolver release];
 	[self createNewGrid];
 	[startSolvingBtn setEnabled:YES];
@@ -127,7 +125,6 @@
 
 - (IBAction)startSolving:(id)sender
 {
-	//[self sudokuSolverWrapper:sender];
 	
 	[NSThread detachNewThreadSelector:@selector(sudokuSolverWrapper:) 
 							 toTarget:self 
@@ -156,27 +153,19 @@
 												   NumberOfColumns:9
 												 NumberOfInnerRows:3 
 											 NumberOfInnerColumns:3];
-		
-		sudokuGrid.sudokuSolverObj = fSudokuSolver;
-		
-		[sudokuGrid setInnerGridHSize:3];
-		[sudokuGrid setInnerGridVSize:3];
-		[sudokuGrid setGridHSize:9];
-		[sudokuGrid setGridVSize:9];
-	}else if([setUpGridRadio12x12 intValue])
-	{
-		fSudokuSolver = [[SudokuSolver alloc] initWithNumberOfRows:12
-												   NumberOfColumns:12
+	} else if([setUpGridRadio16x16 intValue]) {
+		fSudokuSolver = [[SudokuSolver alloc] initWithNumberOfRows:16
+												   NumberOfColumns:16
 												 NumberOfInnerRows:4 
-											 NumberOfInnerColumns:3];
-		
-		sudokuGrid.sudokuSolverObj = fSudokuSolver;
-		
-		[sudokuGrid setInnerGridHSize:4];
-		[sudokuGrid setInnerGridVSize:3];
-		[sudokuGrid setGridHSize:12];
-		[sudokuGrid setGridVSize:12];
-	}
+											 NumberOfInnerColumns:4];
+    }
+    
+    sudokuGrid.sudokuSolverObj = fSudokuSolver;
+    
+    [sudokuGrid setInnerGridHSize:fSudokuSolver.numberOfInnerCols];
+    [sudokuGrid setInnerGridVSize:fSudokuSolver.numberOfInnerRows];
+    [sudokuGrid setGridHSize:fSudokuSolver.numberOfRows];
+    [sudokuGrid setGridVSize:fSudokuSolver.numberOfCols];
 	
 	[sudokuGrid setBorderSize:5];
 	
@@ -213,19 +202,10 @@
 												   Column:[selectedCol intValue]
 											        Value:[selectedVal intValue]];
 	if (returnVal == OK){
-		// Log it
-		NSLog(@"Inserted into row (%@), col (%@). Value (%@)",
-			  selectedCol,
-			  selectedRow,
-			  selectedVal);
 		// Show it
 		[sudokuGrid setNeedsDisplay:YES];
 	}else{
-		NSLog(@"Failed to insert into row (%@), col (%@). Value (%@) Error: %d",
-			  selectedCol,
-			  selectedRow,
-			  selectedVal,
-			  returnVal);
+		
 		// Show error?
 	}
 	
@@ -285,7 +265,11 @@
 				break;
 			case SS_RESET:
 			case SS_CANNOT_COMPLETE:
-				alert = [NSAlert alertWithError:@"There was an error, perhaps your soduku is impossible."];
+                alert = [NSAlert alertWithMessageText:@"There was an error, perhaps your soduku seems to be impossible." 
+										defaultButton:@"Ok" 
+									  alternateButton:nil 
+										  otherButton:nil
+							informativeTextWithFormat:@"Impossible" ];
 				break;
 		} 
 		[alert runModal];
@@ -294,7 +278,7 @@
 		fKillTimer = NO;
 	}	
 }
-@synthesize setUpGridRadio12x12;
+@synthesize setUpGridRadio16x16;
 @synthesize setUpGridRadio9x9;
 @synthesize fKillTimer;
 @synthesize fTimer;
