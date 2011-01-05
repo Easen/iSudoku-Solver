@@ -166,6 +166,10 @@
     [sudokuGrid setInnerGridVSize:fSudokuSolver.numberOfInnerRows];
     [sudokuGrid setGridHSize:fSudokuSolver.numberOfRows];
     [sudokuGrid setGridVSize:fSudokuSolver.numberOfCols];
+    
+    [sudokuGrid.outputTextAttributes setObject:[NSFont fontWithName:@"Helvetica"
+                                                               size:25 - ((fSudokuSolver.numberOfRows - 9)  * 1.7) ]
+                                        forKey:NSFontAttributeName];
 	
 	[sudokuGrid setBorderSize:5];
 	
